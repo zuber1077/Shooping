@@ -1,0 +1,48 @@
+{
+  "name": "shooping",
+  "version": "1.0.0",
+  "description": "shooping web app using nodejs and mongodb",
+  "main": "app.js",
+  "dev": "nodemon app.js",
+  "engines": {
+    "node": "8.11.1",
+    "npm": "5.6.0"
+  },
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuber1077/Shooping.git"
+  },
+  "keywords": [
+    "shooping",
+    "nodejs",
+    "mongodb",
+    "zuber"
+  ],
+  "author": "zuber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zuber1077/Shooping/issues"
+  },
+  "homepage": "https://github.com/zuber1077/Shooping#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.0",
+    "fs-extra": "^7.0.0",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^5.1.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "resize-img": "^1.1.2"
+  }
+}
