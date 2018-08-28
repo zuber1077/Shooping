@@ -1,0 +1,65 @@
+<%- include('../_layouts/adminheader') %>
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="panel">
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="m-b-30">
+                            <a href="/admin/pages/add-page" id="addToTable" class="btn btn-success waves-effect waves-light">Add New Page <i class="mdi mdi-plus-circle-outline"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <table class="table table-striped add-edit-table table-bordered" id="datatable-editable">
+                        <thead>
+                            <tr class="home">
+                                <th>Title</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            <% pages.forEach(page => { %>
+                                <tr id="id_<%= page._id %>" class="<%= page.slug %>">
+                                    <td><%= page.title %> </td>
+                                    <td class="actions">
+                                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                        <a href="/admin/pages/edit-page/<%= page.slug %>" class="on-default edit-row"><i class="fa fa-pencil"></i> Edit</a>
+                                        <% if (page.slug == 'home') { %>
+                                        <% } else { %>
+                                        <a href="/admin/pages/delete-page/<%= page._id %>" class="on-default remove-row"><i class="fa fa-trash-o"></i> Delete</a>
+                                        <% } %> 
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end: page -->
+
+        </div> <!-- end Panel -->
+
+    </div>
+</div>
+
+<%- include('../_layouts/adminfooter') %>
+<script src="/js/jquery-ui.min.js"></script>
+<script>
+    $('tbody').sortable({
+        items: "tr:not('.home')",
+        placeholder: "ui-state-hightlight",
+        update: function() {
+            const ids =   $('tbody').sortable("serialize");
+            const url = '/admin/pages/reorder-pages';
+
+            $.post(url, ids);
+        }
+    })
+</script>

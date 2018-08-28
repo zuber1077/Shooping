@@ -1,5 +1,6 @@
 node_modules/
 variables.env
+public/*
 .idea
 *.log
 DS_store

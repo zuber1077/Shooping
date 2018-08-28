@@ -21,7 +21,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // set public fod
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public' || 'imag')));
+
+// set global errors variable
+app.locals.errors = null;
 
 // set routes
 const pages = require('./routes/pages.js');
