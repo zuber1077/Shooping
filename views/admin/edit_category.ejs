@@ -4,18 +4,10 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="p-20">
                         <div class="">
-                            <form method="POST" action="/admin/pages/edit-page/<%= id %>">
+                            <form method="POST" action="/admin/categories/edit-category/<%= id %>">
                                 <div class="form-group m-b-20">
                                     <label >Title</label>
                                     <input type="text" class="form-control" name="title" value="<%= title %>"  placeholder="Enter title">
-                                </div>
-                                <div class="form-group m-b-20">
-                                    <label>Slug</label>
-                                    <input type="text" class="form-control" name="slug" value="<%= slug %>" placeholder="Enter Slug">
-                                </div>
-                                <div class="form-group">
-                                    <label>Content</label>
-                                    <textarea name="content" id="ta" class="form-control" placeholder="Enter Content"><%= content %></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
                                 <button type="button" class="btn btn-danger waves-effect waves-light">Discard</button>

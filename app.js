@@ -26,10 +26,6 @@ app.use(express.static(path.join(__dirname, 'public' || 'imag')));
 // set global errors variable
 app.locals.errors = null;
 
-// set routes
-const pages = require('./routes/pages.js');
-const adminPages = require('./routes/admin_pages.js');
-
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,9 +33,9 @@ app.use(bodyParser.json());
 // express session middleware
 app.use(session({
     secret: process.env.SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: true }
+    // cookie: { secure: true }
 }));
 
 // Express Validator middleware
@@ -85,7 +81,13 @@ app.use(function (req, res, next) {
 });
 
 
+// set routes
+const pages = require('./routes/pages.js');
+const adminPages = require('./routes/admin_pages.js');
+const adminCategories = require("./routes/admin_categories.js");
+
 app.use('/admin/pages', adminPages);
+app.use("/admin/categories", adminCategories);
 app.use('/', pages);
 
 // start server

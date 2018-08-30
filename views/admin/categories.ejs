@@ -1,0 +1,50 @@
+<%- include('../_layouts/adminheader') %>
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="panel">
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="m-b-30">
+                            <a href="/admin/categories/add-category" id="addToTable" class="btn btn-success waves-effect waves-light">Add New Categories <i class="mdi mdi-plus-circle-outline"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <table class="table table-striped add-edit-table table-bordered" id="datatable-editable">
+                        <thead>
+                            <tr>
+                                <th>categories</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        
+                            <% categories.forEach(cat => { %>
+                                <tr>
+                                    <td><%= cat.title %> </td>
+                                    <td class="actions">
+                                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                                        <a href="/admin/categories/edit-category/<%= cat.id %>" class="on-default edit-row"><i class="fa fa-pencil"></i> Edit</a>
+                                        <a class="confirmDeletion" href="/admin/categories/delete-category/<%= cat._id %>" class="on-default remove-row"><i class="fa fa-trash-o"></i> Delete</a>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end: page -->
+
+        </div> <!-- end Panel -->
+
+    </div>
+</div>
+
+<%- include('../_layouts/adminfooter') %>
+

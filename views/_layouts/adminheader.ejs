@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
 
-    <title><%= titles %></title>
+    <title>Admin - <%= titles %></title>
 
     <!-- Summernote css -->
     <link href="/plugins/summernote/summernote.css" rel="stylesheet" />
 
+    <link href="/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
     <!-- Select2 -->
     <link href="/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
@@ -211,20 +212,14 @@
 
                         <li class="has-submenu">
                             <a href="#"><i class="mdi mdi-view-dashboard"></i>Dashboard</a>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="index.html">Dashboard 01</a>
-                                </li>
-                            </ul>
                         </li>
                             <li class="has-submenu">
-                                <a href="#"><i class="mdi mdi-comment-text"></i>Blog</a>
+                                <a href="#"><i class="mdi mdi-comment-text"></i>Pages</a>
                                 <ul class="submenu">
-                                    <li><a href="blogs-dashboard.html">Dashboard</a></li>
-                                    <li><a href="blogs-blog-list.html">Blog List</a></li>
-                                    <li><a href="blogs-blog-column.html">Blog Column</a></li>
-                                    <li><a href="blogs-blog-post.html">Blog Post</a></li>
-                                    <li><a href="blogs-blog-add.html">Add Blog</a></li>
+                                    <li><a href="/admin/pages">Pages</a></li>
+                                    <li><a href="/admin/pages/add-page">Add Pages</a></li>
+                                    <li><a href="/admin/categories">Categories</a></li>
+                                    <li><a href="/admin/categories/add-category">Add Category</a></li>
                                 </ul>
                             </li>
                     </ul>
@@ -241,7 +236,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
-                        <h4 class="page-title"><a href="/admin/pages"> Admin </a> - <%= titles %> </h4>
+                        <h4 class="page-title"><a href="/admin/<%= back %>"> Admin </a> - <%= titles %> </h4>
                     </div>
                 </div>
             </div>

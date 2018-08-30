@@ -5,7 +5,7 @@ const Page  = require('../models/page');
 // get page index
 router.get('/', (req,res) => {
     Page.find({}).sort({sorting: 1}).exec(function (err, pages) {
-        res.render('admin/pages', { titles: 'Pages', pages: pages })
+        res.render('admin/pages', { titles: 'Pages', pages, back: 'pages' })
     })        
 });
 
@@ -15,7 +15,7 @@ router.get('/add-page', (req,res) => {
     const title = '';
     const slug = '';
     const content = '';
-    res.render('admin/add_page', { titles: 'Add Page', title, slug, content})
+    res.render('admin/add_page', { titles: 'Add Page', title, slug, content , back: 'pages'})
 });
 
 // post add page 
@@ -32,12 +32,12 @@ router.post('/add-page', (req,res) => {
     const errors = req.validationErrors();
 
     if(errors){
-        res.render('admin/add_page', {errors, title, slug, content});
+        res.render('admin/add_page', { errors, title, slug, content, titles: 'Add Page', back: 'pages'});
     } else {
         Page.findOne({slug: slug}, function (err, page) {
             if (page) {
                 req.flash('danger', 'page slug exits, choose another.'); 
-                res.render('admin/add_page', {title, slug, content})
+                res.render('admin/add_page', {title, slug, content , titles: 'Add Page', back: 'pages'})
 
             } else {
                 const page = new Page({
@@ -75,15 +75,15 @@ router.post('/reorder-pages', (req,res) => {
 });
 
 // get edit page 
-router.get('/edit-page/:slug', (req,res) => {
+router.get('/edit-page/:id', (req,res) => {
 
-    Page.findOne({slug: req.params.slug}).then(page => {
-        res.render('admin/edit_page', {titles: 'Edit Page', title: page.title, slug: page.slug, content: page.content, id: page._id});
+    Page.findById(req.params.id).then(page => {
+        res.render('admin/edit_page', {titles: 'Edit Page', title: page.title, slug: page.slug, content: page.content, id: page._id , back: 'pages'});
     }).catch(error=>console.log(error));
 });
 
-// post add page 
-router.post('/edit-page/:slug', (req,res) => {
+// post edit page 
+router.post('/edit-page/:id', (req,res) => {
 
     req.checkBody('title', 'title must have a value').notEmpty();
     req.checkBody('content', 'content must have a value').notEmpty();
@@ -92,7 +92,7 @@ router.post('/edit-page/:slug', (req,res) => {
     var slug = req.body.slug.replace(/\s+/g, '-').toLowerCase();
     if (slug == "") slug = title.replace(/\s+/g, '-').toLowerCase();
     var content = req.body.content;
-    var id = req.body.id;
+    var id = req.params.id;
 
     const errors = req.validationErrors();
 
@@ -102,7 +102,7 @@ router.post('/edit-page/:slug', (req,res) => {
         Page.findOne({slug: slug, _id: {'$ne': id}}, function (err, page) {
             if (page) {
                 req.flash('danger', 'page slug exits, choose another.'); 
-                res.render('admin/edit_page', {title, slug, content, id})
+                res.render('admin/edit_page', { title, slug, content, id, titles: 'Edit Page', back: 'pages'})
 
             } else {
                 
@@ -113,7 +113,7 @@ router.post('/edit-page/:slug', (req,res) => {
 
                     page.save().then(err => {
                         req.flash('success', 'page Updated Successfully!');
-                        res.redirect('/admin/pages');
+                        res.redirect(`/admin/pages/edit-page/${id}`);
                     }).catch(err => console.log(err));
 
                 }).catch(error=>console.log(error));
@@ -122,6 +122,14 @@ router.post('/edit-page/:slug', (req,res) => {
         });
     }
 
+});
+
+// get Delete pages
+router.get('/delete-page/:id', (req,res) => {
+    Page.findByIdAndRemove(req.params.id).then(err => {
+        req.flash('success', 'page Deleted Successfully!');
+        res.redirect('/admin/pages');
+    }).catch(error=>console.log(error));
 });
 
 
