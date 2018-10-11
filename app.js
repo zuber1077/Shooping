@@ -1,10 +1,11 @@
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const ejs = require('ejs');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const expressValidator = require('express-validator');
+const express = require('express'),
+      path = require('path'),
+      mongoose = require('mongoose'),
+      ejs = require('ejs'),
+      bodyParser = require('body-parser'),
+      session = require('express-session'),
+      expressValidator = require('express-validator'),
+      fileUpload = require('express-fileupload');
 require('dotenv').config({ path: 'variables.env' });
 
 // connect to db
@@ -21,10 +22,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // set public fod
-app.use(express.static(path.join(__dirname, 'public' || 'imag')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public/images/', express.static('./public/images'));
+app.use(express.static("/public/images"));
+// app.use(favicon(__dirname + "/public/assets/images/favicon.ico"));
 
 // set global errors variable
 app.locals.errors = null;
+
+// Express fileUpload middleware
+app.use(fileUpload());
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -85,9 +92,11 @@ app.use(function (req, res, next) {
 const pages = require('./routes/pages.js');
 const adminPages = require('./routes/admin_pages.js');
 const adminCategories = require("./routes/admin_categories.js");
+const adminProducts = require("./routes/admin_products.js");
 
 app.use('/admin/pages', adminPages);
 app.use("/admin/categories", adminCategories);
+app.use("/admin/products", adminProducts);
 app.use('/', pages);
 
 // start server
